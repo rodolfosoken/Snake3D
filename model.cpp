@@ -5,8 +5,7 @@
     glWidget = _glWidget ;
     glWidget -> makeCurrent () ;
     initializeOpenGLFunctions () ;
-    readOFFFile("sphere.off");
-    loadTexture(":/textures/smiley.jpg");
+
 }
  Model :: ~ Model ()
 {

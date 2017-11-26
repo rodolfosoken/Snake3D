@@ -31,7 +31,7 @@ public :
     std :: unique_ptr < QVector3D [] > normals ;
     int shaderIndex ;
     int numShaders ;
-    std ::vector<GLuint>shaderProgram;
+    GLuint shaderProgram;
     void createNormals () ;
 
     void createVBOs () ;
@@ -48,7 +48,7 @@ public :
     void createTexCoords () ;
     GLuint vboTexCoords = 0;
     GLuint textureID = 0;
-    void loadTexture ( const QImage & image ) ;
+    void loadTexture ( const QString & fileName) ;
 
 
 };

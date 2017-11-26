@@ -730,6 +730,7 @@ release/moc_openglwidget.cpp: C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtWidgets/Q
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtCore/QFile \
 		material.h \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtGui/QVector4D \
+		model.h \
 		light.h \
 		camera.h \
 		openglwidget.h \
@@ -1216,6 +1217,7 @@ ui_mainwindow.h: mainwindow.ui \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtCore/QFile \
 		material.h \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtGui/QVector4D \
+		model.h \
 		light.h \
 		camera.h
 	C:\Qt\Qt5.9.1\5.9.1\mingw53_32\bin\uic.exe mainwindow.ui -o ui_mainwindow.h
@@ -1827,6 +1829,7 @@ release/mainwindow.o: mainwindow.cpp mainwindow.h \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtCore/QFile \
 		material.h \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtGui/QVector4D \
+		model.h \
 		light.h \
 		camera.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o mainwindow.cpp
@@ -2303,6 +2306,7 @@ release/openglwidget.o: openglwidget.cpp openglwidget.h \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtCore/QFile \
 		material.h \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtGui/QVector4D \
+		model.h \
 		light.h \
 		camera.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\openglwidget.o openglwidget.cpp
@@ -3414,6 +3418,7 @@ release/snakehead.o: snakehead.cpp snakehead.h \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtCore/QFile \
 		material.h \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/include/QtGui/QVector4D \
+		model.h \
 		SnakeHead.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\snakehead.o snakehead.cpp
 

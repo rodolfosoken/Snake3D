@@ -40,7 +40,7 @@ void OpenGLWidget :: paintGL ()
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) ;
     if (! model )
     return ;
-    int shaderProgramID = model -> shaderProgram ;
+    int shaderProgramID = model ->shaderProgram ;
     QVector4D ambientProduct = light.ambient * model -> material.ambient ;
     QVector4D diffuseProduct = light.diffuse * model -> material.diffuse ;
     QVector4D specularProduct = light.specular * model -> material.specular ;
