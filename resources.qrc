@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/shaders">
+        <file>ftexture.glsl</file>
+        <file>vtexture.glsl</file>
+    </qresource>
+    <qresource prefix="/textures">
+        <file>smiley.jpg</file>
+    </qresource>
+</RCC>

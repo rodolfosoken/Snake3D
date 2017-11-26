@@ -1,0 +1,16 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\openglwidget.o
+./release\model.o
+./release\light.o
+./release\material.o
+./release\camera.o
+./release\snakebody.o
+./release\snakehead.o
+./release\bloco.o
+./release\maca.o
+./release\qrc_resources.o
+./release\moc_mainwindow.o
+./release\moc_openglwidget.o
+);
