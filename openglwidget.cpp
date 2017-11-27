@@ -27,8 +27,14 @@ void OpenGLWidget :: initializeGL ()
 
     if(!models.size()){
         head = std::make_shared <SnakeHead>(this);
-
         models.push_back(head);
+//        std::shared_ptr <SnakeHead> head2 = std::make_shared <SnakeHead>(this);
+//        head2->escala(2);
+//        models.push_back(head2);
+
+        plano = std::make_shared <Plano>(this);
+        plano->escala(15);
+        models.push_back(plano);
     }
 
 

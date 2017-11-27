@@ -36,7 +36,8 @@ SOURCES += \
     snakebody.cpp \
     snakehead.cpp \
     bloco.cpp \
-    maca.cpp
+    maca.cpp \
+    plano.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -49,7 +50,8 @@ HEADERS += \
     snakehead.h \
     bloco.h \
     trackball.h \
-    maca.h
+    maca.h \
+    plano.h
 
 FORMS += \
     mainwindow.ui

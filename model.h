@@ -55,9 +55,11 @@ public :
     GLuint vboTexCoords = 0;
     GLuint textureID = 0;
     void loadTexture ( const QString & fileName) ;
+    float scaleFactor = 1.0f;
     float posX=0,posY=0;
     bool isFlipedY = false;
     void transladarModel(float dx,float dy);
+    void escala(float factor);
 
 
 };

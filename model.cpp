@@ -103,7 +103,7 @@ void Model:: drawModel (Light &light, Camera &camera)
     //================Draw Model =================
     modelMatrix . setToIdentity () ;
 //    modelMatrix . rotate ( trackBall . getRotation () ) ;
-    modelMatrix . scale ( invDiag , invDiag , invDiag ) ;
+    modelMatrix . scale ( invDiag *scaleFactor , invDiag*scaleFactor , invDiag*scaleFactor ) ;
     modelMatrix . translate ( this->posX,this->posY,0 ) ;
     GLuint locModel = 0;
     GLuint locNormalMatrix = 0;
@@ -351,6 +351,9 @@ void Model:: createShaders ()
 
 }
 
+void Model::escala(float factor){
+    this->scaleFactor = factor;
+}
 
 void Model::transladarModel(float dx,float dy){
 

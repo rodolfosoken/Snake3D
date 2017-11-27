@@ -11,6 +11,7 @@ INPUT(
 ./debug\snakehead.o
 ./debug\bloco.o
 ./debug\maca.o
+./debug\plano.o
 ./debug\qrc_resources.o
 ./debug\moc_mainwindow.o
 ./debug\moc_openglwidget.o

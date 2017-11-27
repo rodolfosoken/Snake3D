@@ -9,7 +9,5 @@ SnakeHead :: SnakeHead ( QOpenGLWidget * _glWidget ):Model(_glWidget)
 }
 SnakeHead :: ~SnakeHead ()
 {
-    this->destroyVBOs () ;
-    this->destroyShaders () ;
 }
 

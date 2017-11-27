@@ -6,5 +6,6 @@
     <qresource prefix="/textures">
         <file>smiley.jpg</file>
         <file>snake-texture.jpg</file>
+        <file>floor.jpg</file>
     </qresource>
 </RCC>

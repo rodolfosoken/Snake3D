@@ -33,12 +33,12 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->setEnabled(true);
-        MainWindow->resize(710, 490);
+        MainWindow->resize(497, 477);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         openGLWidget = new OpenGLWidget(centralWidget);
         openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
-        openGLWidget->setGeometry(QRect(10, 10, 671, 431));
+        openGLWidget->setGeometry(QRect(10, 10, 471, 441));
         openGLWidget->setFocusPolicy(Qt::StrongFocus);
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);

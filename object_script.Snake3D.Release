@@ -11,6 +11,7 @@ INPUT(
 ./release\snakehead.o
 ./release\bloco.o
 ./release\maca.o
+./release\plano.o
 ./release\qrc_resources.o
 ./release\moc_mainwindow.o
 ./release\moc_openglwidget.o
