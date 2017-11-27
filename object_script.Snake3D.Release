@@ -6,6 +6,7 @@ INPUT(
 ./release\light.o
 ./release\material.o
 ./release\camera.o
+./release\trackball.o
 ./release\snakebody.o
 ./release\snakehead.o
 ./release\bloco.o

@@ -11,6 +11,10 @@
 #include <iostream>
 #include <memory>
 #include "material.h"
+#include "trackball.h"
+#include "light.h"
+#include "camera.h"
+
 
 class Model : public QOpenGLExtraFunctions
 {
@@ -38,17 +42,22 @@ public :
     void createShaders () ;
     void destroyVBOs () ;
     void destroyShaders () ;
-    void drawModel () ;
+    void drawModel (Light &light, Camera &camera) ;
     void readOFFFile ( const QString & fileName ) ;
     QMatrix4x4 modelMatrix ;
     QVector3D midPoint ;
     double invDiag ;
+    TrackBall trackBall ;
+
 
     std :: unique_ptr < QVector2D [] > texCoords ;
     void createTexCoords () ;
     GLuint vboTexCoords = 0;
     GLuint textureID = 0;
     void loadTexture ( const QString & fileName) ;
+    float posX=0,posY=0;
+    bool isFlipedY = false;
+    void transladarModel(float dx,float dy);
 
 
 };

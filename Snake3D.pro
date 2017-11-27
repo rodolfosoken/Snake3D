@@ -32,6 +32,7 @@ SOURCES += \
     light.cpp \
     material.cpp \
     camera.cpp \
+    trackball.cpp \
     snakebody.cpp \
     snakehead.cpp \
     bloco.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     snakebody.h \
     snakehead.h \
     bloco.h \
+    trackball.h \
     maca.h
 
 FORMS += \

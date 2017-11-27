@@ -1,11 +1,12 @@
 #include "openglwidget.h"
 
+
 OpenGLWidget :: OpenGLWidget ( QWidget * parent ) : QOpenGLWidget (parent )
 {
-    camera.projectionMatrix.setToIdentity () ;
-    camera.projectionMatrix.ortho ( -1 ,1 , -1 ,1 ,0 ,2) ;
-    camera.viewMatrix.setToIdentity () ;
-    camera.viewMatrix.translate (0 ,0 , -1) ;
+//    camera.projectionMatrix.setToIdentity () ;
+//    camera.projectionMatrix.ortho ( -1 ,1 , -1 ,1 ,0 ,2) ;
+//    camera.viewMatrix.setToIdentity () ;
+//    camera.viewMatrix.translate (0 ,0 , -1) ;
 
 }
 
@@ -21,8 +22,14 @@ void OpenGLWidget :: initializeGL ()
     connect (& timer , SIGNAL ( timeout () ) , this , SLOT ( animate () ) ) ;
     timer . start (0) ;
 
-    if(!model){
-        model = std::make_shared <SnakeHead>(this);
+
+
+    if(!models.size()){
+        head = std::make_shared <SnakeHead>(this);
+
+        head -> trackBall . resizeViewport ( width () , height () ) ;
+
+        models.push_back(head);
     }
 
 
@@ -38,33 +45,43 @@ void OpenGLWidget :: resizeGL (int width , int height )
 void OpenGLWidget :: paintGL ()
 {
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) ;
-    if (! model )
-    return ;
-    int shaderProgramID = model ->shaderProgram ;
-    QVector4D ambientProduct = light.ambient * model -> material.ambient ;
-    QVector4D diffuseProduct = light.diffuse * model -> material.diffuse ;
-    QVector4D specularProduct = light.specular * model -> material.specular ;
-    GLuint locProjection = glGetUniformLocation ( shaderProgramID , "projection") ;
-    GLuint locView = glGetUniformLocation ( shaderProgramID , "view") ;
-    GLuint locLightPosition = glGetUniformLocation ( shaderProgramID , "lightPosition") ;
-    GLuint locAmbientProduct = glGetUniformLocation ( shaderProgramID ,"ambientProduct") ;
-    GLuint locDiffuseProduct = glGetUniformLocation ( shaderProgramID , "diffuseProduct") ;
-    GLuint locSpecularProduct = glGetUniformLocation ( shaderProgramID , "specularProduct" ) ;
-    GLuint locShininess = glGetUniformLocation ( shaderProgramID , "shininess") ;
-    glUseProgram ( shaderProgramID ) ;
+    foreach (std::shared_ptr <Model> model, models) {
+        if (! model )
+            return ;
+        model ->transladarModel(0.01,0.01);
+        model -> drawModel(light,camera) ;
 
-    glUniformMatrix4fv ( locProjection , 1 , GL_FALSE , camera.projectionMatrix . data () ) ;
-    glUniformMatrix4fv ( locView , 1 , GL_FALSE , camera.viewMatrix . data () ) ;
-    glUniform4fv ( locLightPosition , 1 , &( light . position [0]) ) ;
-    glUniform4fv ( locAmbientProduct , 1 , &( ambientProduct [0]) ) ;
-    glUniform4fv ( locDiffuseProduct , 1 , &( diffuseProduct [0]) ) ;
-    glUniform4fv ( locSpecularProduct , 1 , &( specularProduct [0]) ) ;
-    glUniform1f ( locShininess , model -> material.shininess ) ;
-    model ->drawModel();
-
+    }
 
 }
 
+void OpenGLWidget :: mouseMoveEvent ( QMouseEvent * event )
+{
+    mouseEventHandler(event,1);
+}
+void OpenGLWidget :: mousePressEvent ( QMouseEvent * event )
+{
+    mouseEventHandler(event,2);
+}
+void OpenGLWidget :: mouseReleaseEvent ( QMouseEvent * event )
+{
+    mouseEventHandler(event,3);
+}
+
+
+void OpenGLWidget::mouseEventHandler(QMouseEvent * event, int num){
+
+    foreach (std::shared_ptr <Model> model, models) {
+        if (!model ) return ;
+        else{
+            model -> trackBall . mouseMove ( event -> localPos () ) ;
+            if ( event -> button () & Qt :: LeftButton  && num==2)
+                model -> trackBall . mousePress ( event -> localPos () ) ;
+            else if ( event -> button () & Qt :: LeftButton && num ==3)
+                model -> trackBall . mouseRelease ( event -> localPos () ) ;
+        }
+    }
+}
 
 
 void OpenGLWidget :: animate ()

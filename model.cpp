@@ -76,26 +76,48 @@ void Model:: createVBOs ()
 
 }
 
-void Model:: drawModel ()
+void Model:: drawModel (Light &light, Camera &camera)
 {
+
+    int shaderProgramID = this->shaderProgram ;
+    QVector4D ambientProduct = light.ambient *this-> material.ambient ;
+    QVector4D diffuseProduct = light.diffuse *this-> material.diffuse ;
+    QVector4D specularProduct = light.specular *this-> material.specular ;
+    GLuint locProjection = glGetUniformLocation ( shaderProgramID , "projection") ;
+    GLuint locView = glGetUniformLocation ( shaderProgramID , "view") ;
+    GLuint locLightPosition = glGetUniformLocation ( shaderProgramID , "lightPosition") ;
+    GLuint locAmbientProduct = glGetUniformLocation ( shaderProgramID ,"ambientProduct") ;
+    GLuint locDiffuseProduct = glGetUniformLocation ( shaderProgramID , "diffuseProduct") ;
+    GLuint locSpecularProduct = glGetUniformLocation ( shaderProgramID , "specularProduct" ) ;
+    GLuint locShininess = glGetUniformLocation ( shaderProgramID , "shininess") ;
+    glUseProgram ( shaderProgramID ) ;
+
+    glUniformMatrix4fv ( locProjection , 1 , GL_FALSE , camera.projectionMatrix . data () ) ;
+    glUniformMatrix4fv ( locView , 1 , GL_FALSE , camera.viewMatrix . data () ) ;
+    glUniform4fv ( locLightPosition , 1 , &( light . position [0]) ) ;
+    glUniform4fv ( locAmbientProduct , 1 , &( ambientProduct [0]) ) ;
+    glUniform4fv ( locDiffuseProduct , 1 , &( diffuseProduct [0]) ) ;
+    glUniform4fv ( locSpecularProduct , 1 , &( specularProduct [0]) ) ;
+    glUniform1f ( locShininess ,this-> material.shininess ) ;
+
+    //================Draw Model =================
     modelMatrix . setToIdentity () ;
+    modelMatrix . rotate ( trackBall . getRotation () ) ;
     modelMatrix . scale ( invDiag , invDiag , invDiag ) ;
-    modelMatrix . translate ( - midPoint ) ;
+    modelMatrix . translate ( this->posX,this->posY,1 ) ;
     GLuint locModel = 0;
     GLuint locNormalMatrix = 0;
-    GLuint locShininess = 0;
+    //GLuint locShininess = 0;
     locModel = glGetUniformLocation ( shaderProgram , "model") ;
     locNormalMatrix = glGetUniformLocation ( shaderProgram , "normalMatrix") ;
     locShininess = glGetUniformLocation ( shaderProgram, "shininess") ;
 
     glBindVertexArray ( vao ) ;
     glUseProgram ( shaderProgram) ;
-    glUniformMatrix4fv ( locModel , 1 , GL_FALSE ,modelMatrix . data () )
-            ;
+    glUniformMatrix4fv ( locModel , 1 , GL_FALSE , modelMatrix.data());
     glUniformMatrix3fv ( locNormalMatrix , 1 , GL_FALSE ,modelMatrix .
                          normalMatrix () . data () ) ;
-    glUniform1f ( locShininess , static_cast < GLfloat >( material .
-                                                          shininess ) ) ;
+    glUniform1f ( locShininess , static_cast < GLfloat >( material.shininess ) ) ;
 
     if ( textureID )
     {
@@ -328,3 +350,16 @@ void Model:: createShaders ()
     fs . close () ;
 
 }
+
+
+void Model::transladarModel(float dx,float dy){
+
+    qDebug("posX: %f",this->posX);
+    if(isFlipedY)
+        modelMatrix.translate(-dx,dy,0);
+    else
+        modelMatrix.translate(dx,dy,0);
+    posX += dx;
+    posY += dy;
+}
+

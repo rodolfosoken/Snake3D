@@ -6,6 +6,7 @@ INPUT(
 ./debug\light.o
 ./debug\material.o
 ./debug\camera.o
+./debug\trackball.o
 ./debug\snakebody.o
 ./debug\snakehead.o
 ./debug\bloco.o
