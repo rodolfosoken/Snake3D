@@ -20,10 +20,10 @@ public:
     Light light ;
     Camera camera;
     QTimer timer ;
-    void mouseMoveEvent ( QMouseEvent * event ) ;
-    void mousePressEvent ( QMouseEvent * event ) ;
-    void mouseReleaseEvent ( QMouseEvent * event ) ;
-    void mouseEventHandler ( QMouseEvent * event ,int num) ;
+    enum direcoes {up=0,down=1,right=2,left=3};
+    direcoes direcao;
+    float speed;
+
 
 
 protected:
@@ -35,6 +35,7 @@ signals:
 
 public slots:
     void animate () ;
+    void keyPressEvent( QKeyEvent * event);
 
 
 

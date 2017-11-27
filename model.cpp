@@ -102,9 +102,9 @@ void Model:: drawModel (Light &light, Camera &camera)
 
     //================Draw Model =================
     modelMatrix . setToIdentity () ;
-    modelMatrix . rotate ( trackBall . getRotation () ) ;
+//    modelMatrix . rotate ( trackBall . getRotation () ) ;
     modelMatrix . scale ( invDiag , invDiag , invDiag ) ;
-    modelMatrix . translate ( this->posX,this->posY,1 ) ;
+    modelMatrix . translate ( this->posX,this->posY,0 ) ;
     GLuint locModel = 0;
     GLuint locNormalMatrix = 0;
     //GLuint locShininess = 0;
@@ -354,7 +354,8 @@ void Model:: createShaders ()
 
 void Model::transladarModel(float dx,float dy){
 
-    qDebug("posX: %f",this->posX);
+    //qDebug("posX: %f",this->posX);
+    modelMatrix . setToIdentity () ;
     if(isFlipedY)
         modelMatrix.translate(-dx,dy,0);
     else

@@ -143,7 +143,8 @@ debug/qrc_resources.cpp: resources.qrc \
 		C:/Qt/Qt5.9.1/5.9.1/mingw53_32/bin/rcc.exe \
 		vtexture.glsl \
 		ftexture.glsl \
-		smiley.jpg
+		smiley.jpg \
+		snake-texture.jpg
 	C:\Qt\Qt5.9.1\5.9.1\mingw53_32\bin\rcc.exe -name resources resources.qrc -o debug\qrc_resources.cpp
 
 compiler_moc_predefs_make_all: debug/moc_predefs.h

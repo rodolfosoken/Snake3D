@@ -3,10 +3,11 @@
 
 OpenGLWidget :: OpenGLWidget ( QWidget * parent ) : QOpenGLWidget (parent )
 {
-//    camera.projectionMatrix.setToIdentity () ;
-//    camera.projectionMatrix.ortho ( -1 ,1 , -1 ,1 ,0 ,2) ;
-//    camera.viewMatrix.setToIdentity () ;
-//    camera.viewMatrix.translate (0 ,0 , -1) ;
+    camera.projectionMatrix.setToIdentity () ;
+    camera.projectionMatrix.ortho ( -1 ,1 , -1 ,1 ,0 ,2) ;
+    camera.viewMatrix.setToIdentity () ;
+    camera.viewMatrix.translate (0 ,0 , -3) ;
+    camera.viewMatrix.scale(0.5);
 
 }
 
@@ -22,12 +23,10 @@ void OpenGLWidget :: initializeGL ()
     connect (& timer , SIGNAL ( timeout () ) , this , SLOT ( animate () ) ) ;
     timer . start (0) ;
 
-
+    speed = 0;
 
     if(!models.size()){
         head = std::make_shared <SnakeHead>(this);
-
-        head -> trackBall . resizeViewport ( width () , height () ) ;
 
         models.push_back(head);
     }
@@ -48,44 +47,50 @@ void OpenGLWidget :: paintGL ()
     foreach (std::shared_ptr <Model> model, models) {
         if (! model )
             return ;
-        model ->transladarModel(0.01,0.01);
         model -> drawModel(light,camera) ;
 
     }
-
-}
-
-void OpenGLWidget :: mouseMoveEvent ( QMouseEvent * event )
-{
-    mouseEventHandler(event,1);
-}
-void OpenGLWidget :: mousePressEvent ( QMouseEvent * event )
-{
-    mouseEventHandler(event,2);
-}
-void OpenGLWidget :: mouseReleaseEvent ( QMouseEvent * event )
-{
-    mouseEventHandler(event,3);
-}
-
-
-void OpenGLWidget::mouseEventHandler(QMouseEvent * event, int num){
-
-    foreach (std::shared_ptr <Model> model, models) {
-        if (!model ) return ;
-        else{
-            model -> trackBall . mouseMove ( event -> localPos () ) ;
-            if ( event -> button () & Qt :: LeftButton  && num==2)
-                model -> trackBall . mousePress ( event -> localPos () ) ;
-            else if ( event -> button () & Qt :: LeftButton && num ==3)
-                model -> trackBall . mouseRelease ( event -> localPos () ) ;
+    switch (direcao) {
+        case left :
+            head->transladarModel(-speed,0);
+            break;
+        case right:
+            head->transladarModel(speed,0);
+            break;
+        case up:
+            head->transladarModel(0,speed);
+            break;
+        case down:
+           head->transladarModel(0,-speed);
+            break;
         }
-    }
+
 }
+
+void OpenGLWidget::keyPressEvent( QKeyEvent * event){
+    speed = 0.1;
+    switch (event->key()) {
+        case Qt::Key_Left :
+            direcao=left;
+            break;
+        case Qt::Key_Right:
+            direcao=right;
+            break;
+        case Qt::Key_Up:
+           direcao=up;
+            break;
+        case Qt::Key_Down:
+            direcao=down;
+            break;
+        }
+}
+
+
 
 
 void OpenGLWidget :: animate ()
 {
+
     update () ;
 }
 

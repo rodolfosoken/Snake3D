@@ -39,6 +39,7 @@ public:
         openGLWidget = new OpenGLWidget(centralWidget);
         openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
         openGLWidget->setGeometry(QRect(10, 10, 671, 431));
+        openGLWidget->setFocusPolicy(Qt::StrongFocus);
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
