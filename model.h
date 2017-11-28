@@ -56,9 +56,9 @@ public :
     GLuint textureID = 0;
     void loadTexture ( const QString & fileName) ;
     float scaleFactor = 1.0f;
-    float posX=0,posY=0;
+    float posX=0,posY=0,posZ=0;
     bool isFlipedY = false;
-    void transladarModel(float dx,float dy);
+    void transladarModel(float dx,float dy,float dz);
     void escala(float factor);
 
 

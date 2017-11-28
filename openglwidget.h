@@ -8,7 +8,7 @@
 #include "light.h"
 #include "camera.h"
 #include "snakehead.h"
-#include"plano.h"
+#include "plano.h"
 
 class OpenGLWidget : public QOpenGLWidget , protected
 QOpenGLExtraFunctions
@@ -23,6 +23,13 @@ public:
 
     std :: list <std::shared_ptr < Model >> models;
     std :: shared_ptr<SnakeHead> head = nullptr;
+
+    QList <std::shared_ptr<SnakeBody>> corpos;
+    float posAntX = 0;
+    float posAntY = 0;
+    void moveCorpo();
+    void cresce(std::shared_ptr<SnakeBody> body);
+
     std :: shared_ptr<Plano> plano = nullptr;
     enum direcoes {up=0,down=1,right=2,left=3};
     direcoes direcao;

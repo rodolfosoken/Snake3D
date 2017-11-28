@@ -104,7 +104,7 @@ void Model:: drawModel (Light &light, Camera &camera)
     modelMatrix . setToIdentity () ;
 //    modelMatrix . rotate ( trackBall . getRotation () ) ;
     modelMatrix . scale ( invDiag *scaleFactor , invDiag*scaleFactor , invDiag*scaleFactor ) ;
-    modelMatrix . translate ( this->posX,this->posY,0 ) ;
+    modelMatrix . translate ( this->posX,this->posY,this->posZ ) ;
     GLuint locModel = 0;
     GLuint locNormalMatrix = 0;
     //GLuint locShininess = 0;
@@ -355,14 +355,14 @@ void Model::escala(float factor){
     this->scaleFactor = factor;
 }
 
-void Model::transladarModel(float dx,float dy){
+void Model::transladarModel(float dx,float dy,float dz){
 
     //qDebug("posX: %f",this->posX);
     modelMatrix . setToIdentity () ;
     if(isFlipedY)
-        modelMatrix.translate(-dx,dy,0);
+        modelMatrix.translate(-dx,dy,dz);
     else
-        modelMatrix.translate(dx,dy,0);
+        modelMatrix.translate(dx,dy,dz);
     posX += dx;
     posY += dy;
 }

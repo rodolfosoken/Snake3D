@@ -1,11 +1,11 @@
 #ifndef SNAKEBODY_H
 #define SNAKEBODY_H
 
-
-class SnakeBody
+#include "model.h"
+class SnakeBody : public Model
 {
 public:
-    SnakeBody();
+    SnakeBody(QOpenGLWidget * _glWidget);
 };
 
 #endif // SNAKEBODY_H
