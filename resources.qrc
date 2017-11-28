@@ -7,5 +7,6 @@
         <file>smiley.jpg</file>
         <file>snake-texture.jpg</file>
         <file>floor.jpg</file>
+        <file>maca.png</file>
     </qresource>
 </RCC>

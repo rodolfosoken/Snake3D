@@ -12,6 +12,7 @@ INPUT(
 ./debug\bloco.o
 ./debug\maca.o
 ./debug\plano.o
+./debug\comida.o
 ./debug\qrc_resources.o
 ./debug\moc_mainwindow.o
 ./debug\moc_openglwidget.o

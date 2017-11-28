@@ -12,6 +12,7 @@ INPUT(
 ./release\bloco.o
 ./release\maca.o
 ./release\plano.o
+./release\comida.o
 ./release\qrc_resources.o
 ./release\moc_mainwindow.o
 ./release\moc_openglwidget.o

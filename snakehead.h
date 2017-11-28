@@ -17,10 +17,11 @@ public:
 
     void anda();
 
+    float speed = 0;
+
 private:
     float posAntX = 0;
     float posAntY = 0;
-    float speed = 0;
     enum direcoes {up=0,down=1,right=2,left=3};
     direcoes direcao;
 
