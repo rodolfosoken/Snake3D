@@ -21,6 +21,8 @@ public:
     Light light ;
     Camera camera;
     QTimer timer ;
+    int pontos;
+    bool isOver=false;
 
     std :: list <std::shared_ptr < Model >> models;
     std :: list <std::shared_ptr < Bloco >> paredes;
@@ -30,6 +32,7 @@ public:
 
     void criaCenario();
     void geraComida();
+    void clear();
 
 protected:
     void initializeGL () ;

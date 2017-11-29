@@ -24,6 +24,8 @@ void OpenGLWidget :: initializeGL ()
     connect (& timer , SIGNAL ( timeout () ) , this , SLOT ( animate () ) ) ;
     timer . start (60) ;
 
+    clear();
+
     //cria a cabeca da cobra
     head = std::make_shared <SnakeHead>(this);
     head->posX=-4;
@@ -32,7 +34,7 @@ void OpenGLWidget :: initializeGL ()
 
     //cria corpo
     std::shared_ptr<SnakeBody> body = std::make_shared<SnakeBody>(this);
-    body->posX-=6;
+    body->posX=-6;
     head->cresce(body);
     models.push_back(body);
 
@@ -46,9 +48,17 @@ void OpenGLWidget :: initializeGL ()
 
     //cria paredes
     criaCenario();
+}
 
-
-
+void OpenGLWidget::clear(){
+    isOver = false;
+    if(models.size())
+        foreach (std::shared_ptr < Model > model, models) {
+            model->~Model();
+        }
+    models.clear();
+    head=nullptr;
+    plano=nullptr;
 }
 
 void OpenGLWidget :: resizeGL (int width , int height )
@@ -66,23 +76,6 @@ void OpenGLWidget :: paintGL ()
 
     geraComida();
 
-    //colisao com o corpo
-    foreach (std::shared_ptr<SnakeBody> corpo, head->corpos) {
-        if(std::abs((corpo->posX)-(head->posX))< 1 && std::abs((corpo->posY)-head->posY)< 1){
-            head->speed=0;
-            //game over
-        }
-    }
-
-
-    //colisao com a parede
-    foreach (std::shared_ptr<Bloco> bloco, paredes) {
-        if(std::abs((bloco->posX)-(head->posX/4.2))<= 1 && std::abs((bloco->posY)-head->posY/4.2)<= 1){
-            head->speed=0;
-            //game over
-        }
-    }
-
     //colisao com a comida
     if(comida){
         comida->drawModel(light,camera);
@@ -92,14 +85,13 @@ void OpenGLWidget :: paintGL ()
             std::shared_ptr<SnakeBody> body = std::make_shared<SnakeBody>(this);
             head->cresce(body);
             models.push_back(body);
+            update();
 
             //destroi comida
             comida->~Model();
             comida=nullptr;
         }
     }
-
-
 
     //desenha todos os objetos
     foreach (std::shared_ptr <Model> model, models) {
@@ -108,6 +100,45 @@ void OpenGLWidget :: paintGL ()
         model -> drawModel(light,camera) ;
 
     }
+
+    //colisao com a parede
+    foreach (std::shared_ptr<Bloco> bloco, paredes) {
+        if(std::abs((bloco->posX)-(head->posX/4.2))<= 1 && std::abs((bloco->posY)-head->posY/4.2)<= 1){
+            //game over
+            if(!isOver){
+                QMessageBox *msgBox1 = new QMessageBox;
+                msgBox1->setWindowModality(Qt::WindowModal);
+                msgBox1->setText("GAME OVER!");
+                msgBox1->setWindowTitle("GAME OVER!");
+                msgBox1->show();
+                update();
+                head->speed=0;
+                this->initializeGL();
+                break;
+            }
+
+        }
+    }
+
+    //colisao com o corpo
+//    foreach (std::shared_ptr<SnakeBody> corpo, head->corpos) {
+//        if(head->speed != 0 && std::abs((corpo->posX)-(head->posX))< 1 && std::abs((corpo->posY)-head->posY)< 1){
+//            //game over
+
+//            if(!isOver){
+//                QMessageBox *msgBox1 = new QMessageBox;
+//                msgBox1->setWindowModality(Qt::WindowModal);
+//                msgBox1->setText("GAME OVER!");
+//                msgBox1->setWindowTitle("GAME OVER!");
+//                msgBox1->show();
+//                update();
+//                head->speed=0;
+//                isOver = !isOver;
+//                this->initializeGL();
+//                return;
+//            }
+//        }
+//    }
 
 
 }
