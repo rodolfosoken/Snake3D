@@ -160,7 +160,6 @@ void OpenGLWidget::geraComida(){
             comida = std::make_shared<Comida>(this);
             comida->posX=std::rand()%30-20;
             comida->posY=std::rand()%30-20;
-            this->comida = comida;
 
      }
 }
