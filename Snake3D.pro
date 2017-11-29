@@ -36,7 +36,6 @@ SOURCES += \
     snakebody.cpp \
     snakehead.cpp \
     bloco.cpp \
-    maca.cpp \
     plano.cpp \
     comida.cpp
 
@@ -51,12 +50,12 @@ HEADERS += \
     snakehead.h \
     bloco.h \
     trackball.h \
-    maca.h \
     plano.h \
     comida.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    dialog.ui
 
 RESOURCES += \
     resources.qrc

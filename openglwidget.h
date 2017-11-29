@@ -24,12 +24,12 @@ public:
 
     std :: list <std::shared_ptr < Model >> models;
     std :: list <std::shared_ptr < Bloco >> paredes;
-    std :: list <std::shared_ptr < Comida >> comidas;
     std :: shared_ptr<Comida> comida = nullptr;
     std :: shared_ptr<SnakeHead> head = nullptr;
     std :: shared_ptr<Plano> plano = nullptr;
 
     void criaCenario();
+    void geraComida();
 
 protected:
     void initializeGL () ;

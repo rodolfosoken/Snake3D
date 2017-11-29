@@ -61,6 +61,7 @@ void SnakeHead::mudaDirecao(QKeyEvent *event){
 void SnakeHead::cresce(std::shared_ptr<SnakeBody> body){
     body->escala(this->scaleFactor);
     corpos.prepend(body);
+    moveCorpo();
 }
 
 void SnakeHead::moveCorpo(){

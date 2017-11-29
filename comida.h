@@ -7,6 +7,7 @@ class Comida : public Model
 {
 public:
     Comida(QOpenGLWidget * _glWidget);
+    void posiciona();
 };
 
 #endif // COMIDA_H

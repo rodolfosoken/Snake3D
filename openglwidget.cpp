@@ -6,7 +6,7 @@ OpenGLWidget :: OpenGLWidget ( QWidget * parent ) : QOpenGLWidget (parent )
     camera.projectionMatrix.setToIdentity () ;
     camera.projectionMatrix.ortho ( -1 ,1 , -1 ,1 ,0 ,2) ;
     camera.viewMatrix.setToIdentity () ;
-    camera.viewMatrix.translate (0.7 ,0 , -10) ;
+    camera.viewMatrix.translate (0.7 ,1 , -10) ;
     camera.viewMatrix.rotate(-50,1,0.3,1);
     camera.viewMatrix.scale(0.5);
 
@@ -26,12 +26,13 @@ void OpenGLWidget :: initializeGL ()
 
     //cria a cabeca da cobra
     head = std::make_shared <SnakeHead>(this);
+    head->posX=-4;
     //head->escala(0.5);
     models.push_back(head);
 
     //cria corpo
     std::shared_ptr<SnakeBody> body = std::make_shared<SnakeBody>(this);
-    body->posX-=2;
+    body->posX-=6;
     head->cresce(body);
     models.push_back(body);
 
@@ -42,12 +43,9 @@ void OpenGLWidget :: initializeGL ()
     plano->escala(25);
     models.push_back(plano);
 
+
     //cria paredes
     criaCenario();
-
-    comida = std::make_shared<Comida>(this);
-    comida->posX=10;
-    models.push_back(comida);
 
 
 
@@ -66,16 +64,41 @@ void OpenGLWidget :: paintGL ()
 
     head->anda();
 
-//    qDebug("X:%f ",head->posX);
-//    qDebug("Y:%f ",head->posY);
+    geraComida();
 
-    foreach (std::shared_ptr<Bloco> bloco, paredes) {
-        if(std::abs((bloco->posX)-(head->posX/4))<= 1 && std::abs((bloco->posY)-head->posY/4)<= 1){
+    //colisao com o corpo
+    foreach (std::shared_ptr<SnakeBody> corpo, head->corpos) {
+        if(std::abs((corpo->posX)-(head->posX))< 1 && std::abs((corpo->posY)-head->posY)< 1){
             head->speed=0;
-
-
+            //game over
         }
     }
+
+
+    //colisao com a parede
+    foreach (std::shared_ptr<Bloco> bloco, paredes) {
+        if(std::abs((bloco->posX)-(head->posX/4.2))<= 1 && std::abs((bloco->posY)-head->posY/4.2)<= 1){
+            head->speed=0;
+            //game over
+        }
+    }
+
+    //colisao com a comida
+    if(comida){
+        comida->drawModel(light,camera);
+
+        if(std::abs((comida->posX)-(head->posX))<= 1 && std::abs((comida->posY)-head->posY)<= 1){
+            //cria corpo
+            std::shared_ptr<SnakeBody> body = std::make_shared<SnakeBody>(this);
+            head->cresce(body);
+            models.push_back(body);
+
+            //destroi comida
+            comida->~Model();
+            comida=nullptr;
+        }
+    }
+
 
 
     //desenha todos os objetos
@@ -86,7 +109,9 @@ void OpenGLWidget :: paintGL ()
 
     }
 
+
 }
+
 
 void OpenGLWidget::keyPressEvent( QKeyEvent * event){
     head->mudaDirecao(event);
@@ -128,5 +153,15 @@ void OpenGLWidget::criaCenario(){
         }
 
     }
+}
+
+void OpenGLWidget::geraComida(){
+        if (!comida){
+            comida = std::make_shared<Comida>(this);
+            comida->posX=std::rand()%30-20;
+            comida->posY=std::rand()%30-20;
+            this->comida = comida;
+
+     }
 }
 

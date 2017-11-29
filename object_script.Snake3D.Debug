@@ -10,7 +10,6 @@ INPUT(
 ./debug\snakebody.o
 ./debug\snakehead.o
 ./debug\bloco.o
-./debug\maca.o
 ./debug\plano.o
 ./debug\comida.o
 ./debug\qrc_resources.o
