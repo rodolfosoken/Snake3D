@@ -14,6 +14,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
@@ -26,6 +27,7 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     OpenGLWidget *openGLWidget;
+    QLCDNumber *lcdNumber;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -40,12 +42,16 @@ public:
         openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
         openGLWidget->setGeometry(QRect(10, 10, 821, 621));
         openGLWidget->setFocusPolicy(Qt::StrongFocus);
+        lcdNumber = new QLCDNumber(centralWidget);
+        lcdNumber->setObjectName(QStringLiteral("lcdNumber"));
+        lcdNumber->setGeometry(QRect(280, 650, 251, 51));
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
 
         retranslateUi(MainWindow);
+        QObject::connect(openGLWidget, SIGNAL(aumentaPontos(int)), lcdNumber, SLOT(display(int)));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

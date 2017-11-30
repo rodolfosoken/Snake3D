@@ -59,6 +59,9 @@ void OpenGLWidget::clear(){
     models.clear();
     head=nullptr;
     plano=nullptr;
+    pontos= 0;
+    emit aumentaPontos(pontos);
+    update();
 }
 
 void OpenGLWidget :: resizeGL (int width , int height )
@@ -76,22 +79,6 @@ void OpenGLWidget :: paintGL ()
 
     geraComida();
 
-    //colisao com a comida
-    if(comida){
-        comida->drawModel(light,camera);
-
-        if(std::abs((comida->posX)-(head->posX))<= 1 && std::abs((comida->posY)-head->posY)<= 1){
-            //cria corpo
-            std::shared_ptr<SnakeBody> body = std::make_shared<SnakeBody>(this);
-            head->cresce(body);
-            models.push_back(body);
-            update();
-
-            //destroi comida
-            comida->~Model();
-            comida=nullptr;
-        }
-    }
 
     //desenha todos os objetos
     foreach (std::shared_ptr <Model> model, models) {
@@ -106,39 +93,57 @@ void OpenGLWidget :: paintGL ()
         if(std::abs((bloco->posX)-(head->posX/4.2))<= 1 && std::abs((bloco->posY)-head->posY/4.2)<= 1){
             //game over
             if(!isOver){
-                QMessageBox *msgBox1 = new QMessageBox;
-                msgBox1->setWindowModality(Qt::WindowModal);
-                msgBox1->setText("GAME OVER!");
-                msgBox1->setWindowTitle("GAME OVER!");
-                msgBox1->show();
-                update();
                 head->speed=0;
-                this->initializeGL();
+                isOver = true;
                 break;
             }
 
         }
     }
 
-    //colisao com o corpo
-//    foreach (std::shared_ptr<SnakeBody> corpo, head->corpos) {
-//        if(head->speed != 0 && std::abs((corpo->posX)-(head->posX))< 1 && std::abs((corpo->posY)-head->posY)< 1){
-//            //game over
 
-//            if(!isOver){
-//                QMessageBox *msgBox1 = new QMessageBox;
-//                msgBox1->setWindowModality(Qt::WindowModal);
-//                msgBox1->setText("GAME OVER!");
-//                msgBox1->setWindowTitle("GAME OVER!");
-//                msgBox1->show();
-//                update();
-//                head->speed=0;
-//                isOver = !isOver;
-//                this->initializeGL();
-//                return;
-//            }
-//        }
-//    }
+
+    //colisao com o corpo
+    foreach (std::shared_ptr<SnakeBody> corpo, head->corpos) {
+        if(head->speed != 0 && std::abs((corpo->posX)-(head->posX))< 1 && std::abs((corpo->posY)-head->posY)< 1){
+            //game over
+            if(!isOver){
+                head->speed=0;
+                isOver = true;
+                break;
+            }
+      }
+    }
+
+    //colisao com a comida
+    if(comida){
+        comida->drawModel(light,camera);
+
+        if(std::abs((comida->posX)-(head->posX))<= 1 && std::abs((comida->posY)-head->posY)<= 1){
+            //cria corpo
+            std::shared_ptr<SnakeBody> body = std::make_shared<SnakeBody>(this);
+            head->cresce(body);
+            models.push_back(body);
+            emit aumentaPontos(++pontos);
+            update();
+
+            //destroi comida
+            comida->~Model();
+            comida=nullptr;
+        }
+    }
+
+
+    if(isOver){
+        QMessageBox *msgBox1 = new QMessageBox;
+        msgBox1->setWindowModality(Qt::WindowModal);
+        msgBox1->setText("GAME OVER!");
+        msgBox1->setWindowTitle("GAME OVER!");
+        msgBox1->show();
+        update();
+        this->initializeGL();
+    }
+
 
 
 }

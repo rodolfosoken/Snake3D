@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_OpenGLWidget_t {
-    QByteArrayData data[6];
-    char stringdata0[53];
+    QByteArrayData data[8];
+    char stringdata0[74];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,15 +32,17 @@ struct qt_meta_stringdata_OpenGLWidget_t {
 static const qt_meta_stringdata_OpenGLWidget_t qt_meta_stringdata_OpenGLWidget = {
     {
 QT_MOC_LITERAL(0, 0, 12), // "OpenGLWidget"
-QT_MOC_LITERAL(1, 13, 7), // "animate"
-QT_MOC_LITERAL(2, 21, 0), // ""
-QT_MOC_LITERAL(3, 22, 13), // "keyPressEvent"
-QT_MOC_LITERAL(4, 36, 10), // "QKeyEvent*"
-QT_MOC_LITERAL(5, 47, 5) // "event"
+QT_MOC_LITERAL(1, 13, 13), // "aumentaPontos"
+QT_MOC_LITERAL(2, 27, 0), // ""
+QT_MOC_LITERAL(3, 28, 6), // "pontos"
+QT_MOC_LITERAL(4, 35, 7), // "animate"
+QT_MOC_LITERAL(5, 43, 13), // "keyPressEvent"
+QT_MOC_LITERAL(6, 57, 10), // "QKeyEvent*"
+QT_MOC_LITERAL(7, 68, 5) // "event"
 
     },
-    "OpenGLWidget\0animate\0\0keyPressEvent\0"
-    "QKeyEvent*\0event"
+    "OpenGLWidget\0aumentaPontos\0\0pontos\0"
+    "animate\0keyPressEvent\0QKeyEvent*\0event"
 };
 #undef QT_MOC_LITERAL
 
@@ -50,20 +52,26 @@ static const uint qt_meta_data_OpenGLWidget[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       2,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   29,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x0a /* Public */,
-       3,    1,   25,    2, 0x0a /* Public */,
+       4,    0,   32,    2, 0x0a /* Public */,
+       5,    1,   33,    2, 0x0a /* Public */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::Int,    3,
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 4,    5,
+    QMetaType::Void, 0x80000000 | 6,    7,
 
        0        // eod
 };
@@ -74,9 +82,20 @@ void OpenGLWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         OpenGLWidget *_t = static_cast<OpenGLWidget *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->animate(); break;
-        case 1: _t->keyPressEvent((*reinterpret_cast< QKeyEvent*(*)>(_a[1]))); break;
+        case 0: _t->aumentaPontos((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->animate(); break;
+        case 2: _t->keyPressEvent((*reinterpret_cast< QKeyEvent*(*)>(_a[1]))); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        void **func = reinterpret_cast<void **>(_a[1]);
+        {
+            typedef void (OpenGLWidget::*_t)(int );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&OpenGLWidget::aumentaPontos)) {
+                *result = 0;
+                return;
+            }
         }
     }
 }
@@ -108,15 +127,22 @@ int OpenGLWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 2)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 2;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 2)
+        if (_id < 3)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 2;
+        _id -= 3;
     }
     return _id;
+}
+
+// SIGNAL 0
+void OpenGLWidget::aumentaPontos(int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

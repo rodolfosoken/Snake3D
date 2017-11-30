@@ -30,6 +30,16 @@
      <enum>Qt::StrongFocus</enum>
     </property>
    </widget>
+   <widget class="QLCDNumber" name="lcdNumber">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>650</y>
+      <width>251</width>
+      <height>51</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
@@ -39,8 +49,28 @@
    <class>OpenGLWidget</class>
    <extends>QOpenGLWidget</extends>
    <header>openglwidget.h</header>
+   <slots>
+    <signal>aumentaPontos(int)</signal>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>openGLWidget</sender>
+   <signal>aumentaPontos(int)</signal>
+   <receiver>lcdNumber</receiver>
+   <slot>display(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>420</x>
+     <y>320</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>675</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

@@ -40,6 +40,7 @@ protected:
     void paintGL () ;
 
 signals:
+    void aumentaPontos(int pontos);
 
 public slots:
     void animate () ;
